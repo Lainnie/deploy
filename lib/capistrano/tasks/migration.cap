@@ -1,0 +1,11 @@
+namespace :db do
+  %w[create migrate].each do |task_name|
+    desc "#{task_name} database"
+    task task_name do
+      on roles(:db) do
+        #execute "RAILS_ENV=#{fetch(:rails_env)} bundle exec rake db:#{task_name}"
+        execute "cd '#{release_path}'; RAILS_ENV=#{fetch(:rails_env)} bundle exec rake db:create"
+      end
+    end
+  end
+end
